@@ -1,8 +1,15 @@
 //import 'dart:ffi';
 
+// import 'dart:html';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather/weather.dart';
+import 'package:http/http.dart'as http;
+import 'dart:convert';
+WeatherFactory wf = new WeatherFactory("60e7e642db7389f9f5a274a70fe08655");
+const  apikeye="";
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -11,12 +18,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final databaseReference = FirebaseDatabase.instance.reference();
+
   String bsocket = "images/socket1.png",
       lsocket = "images/socket1.png",
       bfan = "images/ceiling_fan1.png",
       lfan = "images/ceiling_fan1.png",
       bbulb = "images/bulb1.png",
       lbulb = "images/bulb1.png";
+  String cityName = 'Kongens Lyngby';
 
   String data, mobile;
   bool bbulbisSwitched = false;
@@ -52,9 +61,31 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void getweather( String city)async
+  {
+    Weather w = await wf.currentWeatherByCityName(cityName);
+    print(w);
+    //String uri="http://api.openweathermap.org/data/2.5/weather?q=$city&appid={60e7e642db7389f9f5a274a70fe08655}";
+    // http.Response response= await
+    // http.get(Uri.http("api.openweathermap.org/data/2.5/weather?q=$city&appid=$apikeye","") );
+    // if (response.statusCode == 200) {
+    //   // If the server did return a 200 OK response,
+    //   // then parse the JSON.
+    //   String data=response.body;
+    //   var decodeData=jsonDecode(data);
+    //   double temp=decodeData['main']['temp'];
+    //   print(temp);
+    // } else {
+    //   // If the server did not return a 200 OK response,
+    //   // then throw an exception.
+    //   throw Exception('Failed to load album');
+    // }
+  }
+
   @override
   void initState() {
     fetchdata();
+    getweather("Lahore");
     print("init called");
     print('data$data');
     // before buildfunction
