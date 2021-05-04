@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "643157543961",
+    "firebase_url": "https://home-automation-935a0-default-rtdb.firebaseio.com",
+    "project_id": "home-automation-935a0",
+    "storage_bucket": "home-automation-935a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643157543961:android:720b90d3efc2001a0aae88",
+        "android_client_info": {
+          "package_name": "com.example.d_smart_home"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643157543961-i4kro2qgqe13fe8dh8nbvgoto6hubfud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSub2u-fpz4-rrrX9Mp3DjHvg2neWruz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643157543961-i4kro2qgqe13fe8dh8nbvgoto6hubfud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643157543961:android:908db0db4e0f1bb90aae88",
+        "android_client_info": {
+          "package_name": "com.example.sec2_container"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643157543961-i4kro2qgqe13fe8dh8nbvgoto6hubfud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSub2u-fpz4-rrrX9Mp3DjHvg2neWruz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643157543961-i4kro2qgqe13fe8dh8nbvgoto6hubfud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643157543961:android:68c401b9718be69f0aae88",
+        "android_client_info": {
+          "package_name": "com.smart.home"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643157543961-i4kro2qgqe13fe8dh8nbvgoto6hubfud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSub2u-fpz4-rrrX9Mp3DjHvg2neWruz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643157543961-i4kro2qgqe13fe8dh8nbvgoto6hubfud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
