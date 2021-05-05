@@ -5,6 +5,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:weather/weather.dart';
 import 'package:http/http.dart'as http;
 import 'dart:convert';
@@ -16,7 +17,7 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   final databaseReference = FirebaseDatabase.instance.reference();
 
   String bsocket = "images/socket1.png",
@@ -25,9 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
       lfan = "images/ceiling_fan1.png",
       bbulb = "images/bulb1.png",
       lbulb = "images/bulb1.png";
-  String cityName = 'Kongens Lyngby';
+  String cityName = 'Lahore';
 
-  String data, mobile;
+  String data, mobile,otemp;
   bool bbulbisSwitched = false;
   bool lbulbisSwitched = false;
   bool bfanisSwitched = false;
@@ -65,21 +66,13 @@ class _HomeScreenState extends State<HomeScreen> {
   {
     Weather w = await wf.currentWeatherByCityName(cityName);
     print(w);
-    //String uri="http://api.openweathermap.org/data/2.5/weather?q=$city&appid={60e7e642db7389f9f5a274a70fe08655}";
-    // http.Response response= await
-    // http.get(Uri.http("api.openweathermap.org/data/2.5/weather?q=$city&appid=$apikeye","") );
-    // if (response.statusCode == 200) {
-    //   // If the server did return a 200 OK response,
-    //   // then parse the JSON.
-    //   String data=response.body;
-    //   var decodeData=jsonDecode(data);
-    //   double temp=decodeData['main']['temp'];
-    //   print(temp);
-    // } else {
-    //   // If the server did not return a 200 OK response,
-    //   // then throw an exception.
-    //   throw Exception('Failed to load album');
-    // }
+    double celsius = w.temperature.celsius;
+    int temp=celsius.toInt();
+    print("clecius temp is $temp");
+    setState(() {
+      otemp=temp.toString();
+    });
+
   }
 
   @override
@@ -90,9 +83,34 @@ class _HomeScreenState extends State<HomeScreen> {
     print('data$data');
     // before buildfunction
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     // after buildfunction
   }
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if(state == AppLifecycleState.resumed){
+      getweather("Lahore");
+      fetchdata();
+    }
+  }
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   if(state == AppLifecycleState.resumed){
+  //     // user returned to our app
+  //   }else if(state == AppLifecycleState.inactive){
+  //     // app is inactive
+  //   }else if(state == AppLifecycleState.paused){
+  //     // user is about quit our app temporally
+  //   }else if(state == AppLifecycleState.suspending){
+  //     // app suspended (not used in iOS)
+  //   }
+  // }
 
   decision() {
     bbulbisSwitched = false;
@@ -233,8 +251,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   margin: EdgeInsets.all(10.0),
                   child: Text(
                     "D-Smart Home",
-                    style:
-                        TextStyle(fontSize: 40.0, fontFamily: "Lato-Regular"),
+                    style:GoogleFonts.kronaOne(color: Colors.black,textStyle: TextStyle(fontSize: 30.0)),
+                        //TextStyle(fontSize: 40.0, fontFamily: "Lato-Regular"),
                   )),
               SizedBox(
                 height: 5.0,
@@ -255,8 +273,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           child: Text(
                             "Tempreature",
-                            style:
-                                TextStyle(fontSize: 30.0, color: Colors.white),
+                            style:GoogleFonts.lato(color: Colors.white,textStyle: TextStyle(fontSize: 30.0)),
+                                //TextStyle(fontSize: 30.0, color: Colors.white),
                           )),
                       Container(
                         decoration: BoxDecoration(
@@ -285,8 +303,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               //color: Colors.blueAccent,
                               child: Text(
                                 "20.0",
-                                style: TextStyle(
-                                    fontSize: 20.0, color: Colors.white),
+                                style: GoogleFonts.lato(color: Colors.white,textStyle: TextStyle(fontSize: 30.0)),
                               ),
                             ),
                             Container(
@@ -301,9 +318,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               margin: EdgeInsets.all(10.0),
                               //color: Colors.blueAccent,
                               child: Text(
-                                "20.0",
-                                style: TextStyle(
-                                    fontSize: 20.0, color: Colors.white),
+                                otemp,
+                                style: GoogleFonts.lato(color: Colors.white,textStyle: TextStyle(fontSize: 30.0)),
                               ),
                             ),
                           ],
@@ -358,16 +374,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: EdgeInsets.all(10.0),
                               child: Text(
                                 "Socket",
-                                style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold),
+                                style: GoogleFonts.lato(color: Colors.black,
+                                    textStyle: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold)),
                               ),
                             ),
                             Text(
                               "Bed Room",
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
+                              style: GoogleFonts.lato(color: Colors.black,
+                                  textStyle: TextStyle(fontSize: 20.0,)),
                             ),
                           ],
                         ),
@@ -413,15 +427,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: EdgeInsets.all(10.0),
                               child: Text(
                                 "Socket",
-                                style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold),
+                                style: GoogleFonts.lato(color: Colors.black,
+                                    textStyle: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold)),
                               ),
                             ),
                             Text(
                               "Living Room",
-                              style: TextStyle(
-                                fontSize: 20.0,
+                              style: GoogleFonts.lato(color: Colors.black,
+    textStyle: TextStyle(fontSize: 20.0,),
                               ),
                             ),
                           ],
@@ -474,16 +487,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: EdgeInsets.all(10.0),
                               child: Text(
                                 "Ceeling Lamp",
-                                style: TextStyle(
-                                    fontSize: 17.0,
-                                    fontWeight: FontWeight.bold),
+                                style: GoogleFonts.lato(color: Colors.black,
+                                    textStyle: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold)),
                               ),
                             ),
                             Text(
                               "Bed Room",
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
+                              style: GoogleFonts.lato(color: Colors.black,
+                                  textStyle: TextStyle(fontSize: 20.0,)),
                             ),
                           ],
                         ),
@@ -526,16 +537,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: EdgeInsets.all(10.0),
                               child: Text(
                                 "Ceeling Lamp",
-                                style: TextStyle(
-                                    fontSize: 17.0,
-                                    fontWeight: FontWeight.bold),
+                                style: GoogleFonts.lato(color: Colors.black,
+                                    textStyle: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold)),
                               ),
                             ),
                             Text(
                               "Living Room",
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
+                              style: GoogleFonts.lato(color: Colors.black,
+                                  textStyle: TextStyle(fontSize: 20.0,)),
                             ),
                           ],
                         ),
@@ -583,16 +592,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: EdgeInsets.all(10.0),
                               child: Text(
                                 "Ceeling Fan",
-                                style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold),
+                                style: GoogleFonts.lato(color: Colors.black,
+                                    textStyle: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold)),
                               ),
                             ),
                             Text(
                               "Bed Room",
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
+                              style: GoogleFonts.lato(color: Colors.black,
+                                  textStyle: TextStyle(fontSize: 20.0,)),
                             ),
                           ],
                         ),
@@ -635,16 +642,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: EdgeInsets.all(10.0),
                               child: Text(
                                 "Ceeling Fan",
-                                style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold),
+                                style: GoogleFonts.lato(color: Colors.black,
+                                    textStyle: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold)),
                               ),
                             ),
                             Text(
                               "Living Room",
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
+                              style: GoogleFonts.lato(color: Colors.black,
+                                  textStyle: TextStyle(fontSize: 20.0,)),
                             ),
                           ],
                         ),

@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'home_Screen.dart';
 import 'security_screen.dart';
 
@@ -155,10 +155,11 @@ class _login_screenState extends State<login_screen> {
                     onPressed: regFunction,
                     child: Text(
                       "Register",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22.0,
-                      ),
+                      style: GoogleFonts.lato(textStyle: TextStyle(color: Colors.white)),
+                      // style: TextStyle(
+                      //   color: Colors.white,
+                      //   fontSize: 22.0,
+                      // ),
                     ),
                     padding: EdgeInsets.all(15.0),
                     color: Colors.blue,
